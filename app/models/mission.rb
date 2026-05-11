@@ -7,10 +7,9 @@ class Mission < ApplicationRecord
   validates :status, presence: true
 
   def status=(value)
-    unless STATUSES.include?(value)
-      raise ArgumentError, "Invalid status"
-    end
+    return super(nil) if value.blank?
+    raise ArgumentError unless STATUSES.include?(value)
 
-    super
+    super(value)
   end
 end

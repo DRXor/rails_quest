@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_11_101955) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_11_130953) do
   create_table "agent_skills", force: :cascade do |t|
     t.integer "agent_id", null: false
     t.datetime "created_at", null: false
     t.integer "skill_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["agent_id", "skill_id"], name: "index_agent_skills_on_agent_id_and_skill_id", unique: true
     t.index ["agent_id"], name: "index_agent_skills_on_agent_id"
     t.index ["skill_id"], name: "index_agent_skills_on_skill_id"
   end
@@ -56,6 +57,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_11_101955) do
     t.string "name"
     t.integer "power"
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_skills_on_name", unique: true
   end
 
   add_foreign_key "agent_skills", "agents"

@@ -1,5 +1,5 @@
-class AddUniqueIndexToSkillsName < ActiveRecord::Migration[8.1]
+class AddUniqueIndexToAgentsCodename < ActiveRecord::Migration[7.0]
   def change
-    add_index :skills, :name, unique: true
+    add_index :agents, :codename, unique: true
   end
 end
