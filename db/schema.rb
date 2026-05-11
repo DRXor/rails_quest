@@ -10,18 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_11_080622) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_11_101955) do
+  create_table "agent_skills", force: :cascade do |t|
+    t.integer "agent_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "skill_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_id"], name: "index_agent_skills_on_agent_id"
+    t.index ["skill_id"], name: "index_agent_skills_on_skill_id"
+  end
+
   create_table "agents", force: :cascade do |t|
+    t.boolean "active"
+    t.string "codename"
     t.datetime "created_at", null: false
     t.integer "level"
     t.string "name"
     t.datetime "updated_at", null: false
+    t.index ["codename"], name: "index_agents_on_codename", unique: true
   end
 
   create_table "missions", force: :cascade do |t|
     t.integer "agent_id", null: false
     t.datetime "created_at", null: false
     t.integer "difficulty"
+    t.string "status"
     t.string "title"
     t.datetime "updated_at", null: false
     t.index ["agent_id"], name: "index_missions_on_agent_id"
@@ -38,11 +51,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_11_080622) do
   end
 
   create_table "skills", force: :cascade do |t|
+    t.string "category"
     t.datetime "created_at", null: false
     t.string "name"
     t.integer "power"
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "agent_skills", "agents"
+  add_foreign_key "agent_skills", "skills"
   add_foreign_key "missions", "agents"
 end
